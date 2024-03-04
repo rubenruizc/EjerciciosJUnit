@@ -1,7 +1,7 @@
 package clases;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+
 
 import java.util.stream.Stream;
 
@@ -40,14 +40,25 @@ class CadenasTest {
 	}
 
 	private static Stream<Arguments> delReves() {
-		return Stream.of(Arguments.of("Macarena", "aneracaM"), Arguments.of("Auri", "iurA"),
+		return Stream.of(Arguments.of("Macarena", "aneracaM"), Arguments.of("Auri", "iruA"),
 				Arguments.of("Jenri", "irneJ"));
 	}
 
 	@ParameterizedTest
-	@MethodSource("")
-	void testContarPalabra() {
-		fail("Not yet implemented");
+	@MethodSource("contarPalabra")
+	void testContarPalabra(String cadena, String palabra, int contador) {
+		Cadenas frase = new Cadenas(cadena);
+
+		int resultado = frase.contarPalabra(palabra);
+		
+		assertEquals(contador,resultado);
+
 	}
 
+	private static Stream<Arguments> contarPalabra() {
+		return Stream.of(
+				Arguments.of("Me gusta Macarena", "Macarena", 1), 
+				Arguments.of("Amaro no es amarillo, es Amaro","Amaro",2 ),
+				Arguments.of("Jenri tiene toda la cara de ser de Lepe","Auri",0));
+	}
 }
